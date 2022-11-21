@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "wp-scripts build src/admin/app.jsx --output-path=assets"
+    "build": "wp-scripts build src/admin/app.jsx --output-path=assets && node ./post-build.js"
   },
   "repository": {
     "type": "git",

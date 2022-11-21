@@ -27,8 +27,8 @@ function revpress_settings_page() {
 }
 
 function revpress_admin_assets() {
-    wp_enqueue_script( 'revpress-admin', REVPRESS_URL . 'assets/app.jsx.js', array( 'wp-element', 'wp-i18n' ) );
-    wp_enqueue_style( 'revpress-admin', REVPRESS_URL . 'assets/app.jsx.css' );
+    wp_enqueue_script( 'revpress-admin', REVPRESS_URL . 'assets/app.js', array( 'wp-element', 'wp-i18n' ) );
+    wp_enqueue_style( 'revpress-admin', REVPRESS_URL . 'assets/app.css' );
 }
 
 add_action( 'admin_enqueue_scripts', 'revpress_admin_assets' );
