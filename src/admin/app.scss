@@ -1,0 +1,60 @@
+$revpressGreen: rgb(0, 158, 18);
+
+#revpress {
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: white;
+    margin: 0 auto;
+    max-width: 1600px;
+
+    nav {
+        box-sizing: border-box;
+        padding: 0 1rem;
+        margin: 1rem 0;
+        border-bottom: 4px solid #EFEFEF;
+
+        ol {
+            display: flex;
+            flex-direction: row;
+            column-gap: 1rem;
+            margin: 0;
+            list-style: none;
+
+            li {
+                display: block;
+                margin: 0 0 -5px 0;
+                padding: 0;
+                padding: 0 1rem 1rem;
+                margin-bottom: -4px;
+                font-size: 1.25rem;
+                border-bottom: 4px solid transparent;
+
+                &.active {
+                    border-bottom: 4px solid $revpressGreen;
+                    color: $revpressGreen;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .content {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        max-width: 1200px;
+        margin: 0 auto;
+
+        >:first-child {
+            flex: 1 1 auto;
+        }
+
+        aside {
+            flex: 0 1 400px;
+            background-color: $revpressGreen;
+        }
+    }
+}

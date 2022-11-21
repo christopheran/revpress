@@ -1,0 +1,26 @@
+{
+  "name": "revpress",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "wp-scripts build src/admin/app.jsx --output-path=assets"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JarredKennedy/revpress.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JarredKennedy/revpress/issues"
+  },
+  "homepage": "https://github.com/JarredKennedy/revpress#readme",
+  "devDependencies": {
+    "@wordpress/scripts": "^24.6.0"
+  },
+  "dependencies": {
+    "@wordpress/element": "^4.20.0",
+    "@wordpress/i18n": "^4.22.0"
+  }
+}
