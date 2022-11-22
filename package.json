@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "wp-scripts build src/admin/app.jsx --output-path=assets && node ./post-build.js"
+    "build": "wp-scripts build src/admin/app.jsx --output-path=assets && node ./post-build.js",
+    "lint": "wp-scripts lint-js src/"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
     "@wordpress/scripts": "^24.6.0"
   },
   "dependencies": {
+    "@wordpress/api-fetch": "^6.19.0",
     "@wordpress/element": "^4.20.0",
     "@wordpress/i18n": "^4.22.0"
   }

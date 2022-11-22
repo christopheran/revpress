@@ -95,3 +95,21 @@ $revpressGreen: rgb(0, 158, 18);
         border: 1px solid #DDDDDD;
     }
 }
+
+// Settings component styles.
+.revpress.settings {
+
+    >section {
+        margin: 1rem 0;
+
+        >h2 {
+            margin: 0;
+        }
+
+        >hr {
+            border: 0;
+            border-top: 2px solid #EFEFEF;
+        }
+    }
+
+}

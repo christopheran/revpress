@@ -4,8 +4,6 @@ const SnippetEditor = props => {
     const areaRef = useRef();
 
     useEffect(() => {
-        console.log("This ran");
-
         wp.codeEditor.initialize(areaRef.current);
     }, []);
 
