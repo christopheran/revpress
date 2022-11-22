@@ -9,11 +9,9 @@ const Navigation = ( { current, navigate } ) => (
 	<nav>
 		<ol>
 			{ tabs.map( ( tab ) => (
-				<li
-					key={ tab.id }
-					className={ tab.id === current ? 'active' : '' }
-				>
+				<li key={ tab.id }>
 					<button
+						className={ tab.id === current ? 'active' : '' }
 						onClick={ () =>
 							current.id !== tab.id && navigate( tab.id )
 						}

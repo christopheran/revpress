@@ -27,27 +27,33 @@ $revpressGreen: rgb(0, 158, 18);
             list-style: none;
 
             li {
-                display: block;
-                margin: 0 0 -5px 0;
-                padding: 0;
-                padding: 0 1rem 1rem;
-                margin-bottom: -4px;
-                font-size: 1.5em;
-                border-bottom: 4px solid transparent;
-                color: #888888;
+                margin: 0;
 
-                &.active {
-                    border-bottom: 4px solid $revpressGreen;
-                    color: $revpressGreen;
+                button {
+                    border: 0;
+                    background: none;
+                    display: block;
+                    margin: 0 0 -5px 0;
+                    padding: 0;
+                    padding: 0 1rem 1rem;
+                    margin-bottom: -4px;
+                    font-size: 1.5em;
+                    border-bottom: 4px solid transparent;
+                    color: #888888;
+
+                    &.active {
+                        border-bottom: 4px solid $revpressGreen;
+                        color: $revpressGreen;
+
+                        &:hover {
+                            color: $revpressGreen;
+                        }
+                    }
 
                     &:hover {
-                        color: $revpressGreen;
+                        cursor: pointer;
+                        color: #666666;
                     }
-                }
-
-                &:hover {
-                    cursor: pointer;
-                    color: #666666;
                 }
             }
         }
