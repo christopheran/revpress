@@ -4,12 +4,6 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit();
 }
 
-function revpress_admin_init() {
-    
-}
-
-add_action( 'admin_init', 'revpress_admin_init' );
-
 function revpress_register_admin_menu() {
     add_options_page(
         __( 'RevPress Settings', 'revpress' ),
