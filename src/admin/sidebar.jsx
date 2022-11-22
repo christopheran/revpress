@@ -1,7 +1,3 @@
-const Sidebar = ({}) => (
-    <aside>
-        Promotion here
-    </aside>
-);
+const Sidebar = () => <aside>Promotion here</aside>;
 
-export default Sidebar
+export default Sidebar;

@@ -1,47 +1,51 @@
-import { useState, useEffect } from "@wordpress/element";
-import { __ } from "@wordpress/i18n";
-import apiFetch from "@wordpress/api-fetch";
+import { __ } from '@wordpress/i18n';
 
-import Section from './section'
+import Section from './section';
 import SnippetList from './snippet-list';
 
 const snippets = [
-    {
-        id: 'abc123',
-        name: "Something",
-        content: '<script>console.log("This is the snippet");</script>',
-        categories: [],
-        tags: [],
-        isSitewide: false,
-        isAllPosts: false
-    }
+	{
+		id: 'abc123',
+		name: 'Snippet one',
+		content: '<script>console.log("This is the snippet");</script>',
+		categories: [],
+		tags: [],
+		isSitewide: false,
+		isAllPosts: false,
+	},
 ];
 
-const Settings = (props) => {
-    const [ settings, setSettings ] = useState( {} );
-    const [ editingSnippet, setEditingSnippet ] = useState();
+const Settings = () => {
+	// const [ settings, setSettings ] = useState( {} );
+	// const [ editingSnippet, setEditingSnippet ] = useState();
 
-    useEffect( () => {
-        console.log("foobar");
-    }, [] );
+	// useEffect( () => {
+	// 	console.log( 'foobar' );
+	// }, [] );
 
-    return (
-        <div className="revpress settings">
-            
-            <Section heading={ __( 'Snippets', 'revpress' ) }>
-                <SnippetList snippets={ snippets } />
-            </Section>
+	return (
+		<div className="revpress settings">
+			<Section heading={ __( 'Snippets', 'revpress' ) }>
+				<SnippetList snippets={ snippets } />
+			</Section>
 
-            <Section heading={ __( 'Settings', 'revpress' ) }>
-                <div className="field">
-                    <label>{ __( 'Settings Access', 'revpress' ) }</label>
-                    <p className="description">{ __( 'Configure which user roles can modify these settings.', 'revpress' ) }</p>
-                    <em>Roles selector here.</em>
-                </div>
-            </Section>
-
-        </div>
-    )
+			<Section heading={ __( 'Settings', 'revpress' ) }>
+				<div className="field">
+					<label htmlFor="fake-select">
+						{ __( 'Settings Access', 'revpress' ) }
+					</label>
+					<p className="description">
+						{ __(
+							'Configure which user roles can modify these settings.',
+							'revpress'
+						) }
+					</p>
+					<input id="fake-select" type="checkbox" disabled />
+					Administrator
+				</div>
+			</Section>
+		</div>
+	);
 };
 
 export default Settings;
