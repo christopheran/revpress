@@ -10,7 +10,7 @@ const snippets = [
 		content: '<script>console.log("This is the snippet");</script>',
 		categories: [],
 		tags: [],
-		isSitewide: false,
+		isSitewide: true,
 		isAllPosts: false,
 	},
 ];
