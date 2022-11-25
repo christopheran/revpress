@@ -14,8 +14,8 @@ $revpressGreen: rgb(0, 158, 18);
 
     nav {
         box-sizing: border-box;
-        padding: 0 1rem;
-        margin: 1rem 0;
+        padding: 0 1em;
+        margin: 1em 0 0;
         border-bottom: 4px solid #EFEFEF;
         font-size: 1rem;
 
@@ -65,7 +65,7 @@ $revpressGreen: rgb(0, 158, 18);
         flex-direction: row;
         max-width: 1400px;
         margin: 0 auto;
-        gap: 2rem;
+        gap: 16px;
         font-size: 1rem;
 
         >:first-child {
@@ -104,46 +104,79 @@ $revpressGreen: rgb(0, 158, 18);
 
 // Settings component styles.
 .revpress.settings {
-
     >section {
-        margin: 1rem 0;
+        padding: 20px 0;
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
 
         >h2 {
-            margin: 0;
-        }
-
-        >hr {
-            border: 0;
-            border-top: 2px solid #EFEFEF;
+            margin: 12px 0 16px;
         }
     }
-
 }
 
-// SnippetCard component styles.
-.revpress.snippet-card {
-    box-sizing: border-box;
-    padding: 1em;
-    border: 1px solid #DDDDDD;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 2em;
+// SnippetList component styles.
+.revpress.snippet-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 
-    .identifier {
-        font-size: 1.2em;
-    }
+    li {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 12px;
+        border-width: 0;
+        border-color: #DDDDDD;
+        border-style: solid;
+        border-left-width: 1px;
+        border-right-width: 1px;
+        border-bottom-width: 1px;
+        border-collapse: collapse;
+        width: 100%;
 
-    .constraints {
-        .constraint {
+        &:first-of-type {
+            border-top-width: 1px;
+        }
+
+        .identifier {
+            flex: 0 0 15ch;
+            font-size: 1.2em;
+        }
+    
+        .constraints {
+            flex: 1 1 auto;
+    
+            .constraint {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 4px;
+    
+                .icon {
+                    padding: 4px 0px 0px;
+                }
+    
+                p {
+                    margin: 0;
+                    font-size: 1em;
+                }
+            }
+        }
+
+        .actions {
+            flex: 0 0 auto;
             display: flex;
             flex-direction: row;
             align-items: center;
-            gap: 0.5em;
+            gap: 8px;
 
-            p {
-                margin: 0;
-                font-size: 0.9em;
+            button {
+                padding: 6px 12px;
             }
         }
     }

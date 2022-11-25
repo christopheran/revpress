@@ -13,6 +13,24 @@ const snippets = [
 		isSitewide: true,
 		isAllPosts: false,
 	},
+	{
+		id: 'def456',
+		name: 'Snippet two',
+		content: '<script>console.log("This is another snippet");</script>',
+		categories: [],
+		tags: [],
+		isSitewide: false,
+		isAllPosts: true,
+	},
+	{
+		id: 'def456',
+		name: 'Snippet three',
+		content: '<script>console.log("This is yet another snippet");</script>',
+		categories: ['uncategorized'],
+		tags: ['paywalled'],
+		isSitewide: false,
+		isAllPosts: false,
+	},
 ];
 
 const Settings = () => {
