@@ -190,10 +190,16 @@ $revpressGreen: rgb(0, 158, 18);
         --wp-admin-theme-color: #{$revpressGreen};
         --wp-admin-theme-color-darker-10: #{color.scale($revpressGreen, $lightness: -10%)};
         --wp-admin-theme-color-darker-20: #{color.scale($revpressGreen, $lightness: -20%)};
-        font-size: 1em;
+        font-size: 1.8em;
+        height: auto;
+        padding: 12px 24px;
+        line-height: 1;
 
         .dashicon {
             margin-left: 8px;
+            height: 28px;
+            width: 28px;
+            font-size: 30px;
         }
     }
 }

@@ -70,7 +70,7 @@ const Sidebar = () => (
 					variant="primary"
 					href="https://rev.press/join">
 					{ __( 'Join Now', 'revpress' ) }
-					<Icon icon="arrow-right-alt"/>
+					<Icon icon="arrow-right-alt" />
 				</Button>
 			</div>
 		</div>
