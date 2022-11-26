@@ -1,6 +1,7 @@
 import { useState, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
+import { CheckboxControl } from '@wordpress/components';
 
 import Section from './section';
 import SnippetList from './snippet-list';
@@ -8,6 +9,7 @@ import SnippetList from './snippet-list';
 const Settings = () => {
 	const [ loadingSnippets, setLoadingSnippets ] = useState( false );
 	const [ snippets, setSnippets ] = useState( [] );
+	const [ rolesAllowed, setRolesAllowed ] = useState( window.revpress.roles );
 	// const [ settings, setSettings ] = useState( {} );
 	// const [ editingSnippet, setEditingSnippet ] = useState();
 
@@ -32,17 +34,37 @@ const Settings = () => {
 
 			<Section heading={ __( 'Settings', 'revpress' ) }>
 				<div className="field">
-					<label htmlFor="fake-select">
+					<h3>
 						{ __( 'Settings Access', 'revpress' ) }
-					</label>
+					</h3>
 					<p className="description">
 						{ __(
-							'Configure which user roles can modify these settings.',
+							'Configure which user roles can access this settings page. Only Administrators and Super Administrators can modify this setting.',
 							'revpress'
 						) }
 					</p>
-					<input id="fake-select" type="checkbox" disabled />
-					Administrator
+					<ul>
+						{ rolesAllowed.map( ( role ) => (
+							<li key={ role.slug }>
+								<CheckboxControl
+									__nextHasNoMarginBottom
+									label={ role.name }
+									disabled={ role.slug === 'administrator' }
+									checked={ role.allowed }
+									onChange={ ( isAllowed ) => {
+										const newRolesAllowed = [ ...rolesAllowed ];
+										const targetRole = newRolesAllowed.find( ( candidate ) => candidate.slug === role.slug );
+
+										if ( targetRole ) {
+											targetRole.allowed = isAllowed;
+										}
+
+										setRolesAllowed( newRolesAllowed );
+									} }
+								/>
+							</li>
+						))}
+					</ul>
 				</div>
 			</Section>
 		</div>

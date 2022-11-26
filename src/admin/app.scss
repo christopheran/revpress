@@ -76,7 +76,8 @@ $revpressGreen: rgb(0, 158, 18);
 
         .settings {
             .field {
-                >label {
+                >h3 {
+                    margin: 0;
                     display: block;
                     font-size: 1.2em;
                 }

@@ -28,3 +28,14 @@ if ( is_admin() ) {
 }
 
 require_once REVPRESS_PATH . 'includes/rest-api.php';
+
+function revpress_activate() {
+    $privileged_roles = array( 'administrator' );
+    $roles = wp_roles();
+
+    foreach ( $privileged_roles as $privileged_role ) {
+        $roles->add_cap( $privileged_role, 'manage_revpress', true );
+    }
+}
+
+register_activation_hook( __FILE__, 'revpress_activate' );

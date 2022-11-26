@@ -55,5 +55,5 @@ function revpress_api_list_snippets( \WP_REST_Request $request ) {
 }
 
 function revpress_api_permission_check() {
-    return current_user_can( 'manage_options' );
+    return current_user_can( 'manage_revpress' );
 }
