@@ -1,5 +1,5 @@
 import { __, sprintf } from '@wordpress/i18n';
-import { Dashicon, Button } from '@wordpress/components';
+import { Dashicon, Button, ToggleControl } from '@wordpress/components';
 
 const SnippetList = ( { snippets = [] } ) => (
 	<ul className="revpress snippet-list">
@@ -10,7 +10,7 @@ const SnippetList = ( { snippets = [] } ) => (
 				</div>
 
 				<div className="constraints">
-					{ snippet.isSitewide && (
+					{ snippet.is_sitewide && (
 						<div className="constraint sitewide">
 							<div className="icon">
 								<Dashicon icon="admin-site" />
@@ -20,7 +20,7 @@ const SnippetList = ( { snippets = [] } ) => (
 							</p>
 						</div>
 					) }
-					{ snippet.isAllPosts && (
+					{ snippet.is_all_posts && (
 						<div className="constraint allposts">
 							<div className="icon">
 								<Dashicon icon="admin-post" />
@@ -30,7 +30,7 @@ const SnippetList = ( { snippets = [] } ) => (
 							</p>
 						</div>
 					) }
-					{ ! snippet.isSitewide && ! snippet.isAllPosts && snippet.categories.length > 0 && (
+					{ ! snippet.is_sitewide && ! snippet.is_all_posts && snippet.categories.length > 0 && (
 						<div className="constraint categories">
 							<div className="icon">
 								<Dashicon icon="category" />
@@ -40,7 +40,7 @@ const SnippetList = ( { snippets = [] } ) => (
 							</p>
 						</div>
 					) }
-					{ ! snippet.isSitewide && ! snippet.isAllPosts && snippet.tags.length > 0 && (
+					{ ! snippet.is_sitewide && ! snippet.is_all_posts && snippet.tags.length > 0 && (
 						<div className="constraint tags">
 							<div className="icon">
 								<Dashicon icon="tag" />
@@ -51,6 +51,14 @@ const SnippetList = ( { snippets = [] } ) => (
 						</div>
 					) }
 				</div>
+
+				{/* <div className="activation">
+					<ToggleControl
+						checked
+						label="Activate snippet"
+
+					/>
+				</div> */}
 
 				<div className="actions">
 					<Button variant="secondary" icon="edit">{ __( 'Edit', 'revpress' ) }</Button>

@@ -22,7 +22,7 @@ function revpress_settings_page() {
 
 function revpress_admin_assets() {
     if ( isset( $_GET['page'] ) && $_GET['page'] === 'revpress' ) {
-        wp_enqueue_script( 'revpress-admin', REVPRESS_URL . 'assets/app.js', array( 'wp-element', 'wp-i18n', 'wp-components' ) );
+        wp_enqueue_script( 'revpress-admin', REVPRESS_URL . 'assets/app.js', array( 'wp-element', 'wp-i18n', 'wp-components', 'wp-api-fetch' ) );
         wp_enqueue_style( 'revpress-admin', REVPRESS_URL . 'assets/app.css', array( 'wp-components' ) );
 
         // Include the code editor for modifying snippets.

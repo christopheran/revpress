@@ -1,50 +1,33 @@
+import { useState, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import apiFetch from '@wordpress/api-fetch';
 
 import Section from './section';
 import SnippetList from './snippet-list';
 
-const snippets = [
-	{
-		id: 'abc123',
-		name: 'Snippet one',
-		content: '<script>console.log("This is the snippet");</script>',
-		categories: [],
-		tags: [],
-		isSitewide: true,
-		isAllPosts: false,
-	},
-	{
-		id: 'def456',
-		name: 'Snippet two',
-		content: '<script>console.log("This is another snippet");</script>',
-		categories: [],
-		tags: [],
-		isSitewide: false,
-		isAllPosts: true,
-	},
-	{
-		id: 'def456',
-		name: 'Snippet three',
-		content: '<script>console.log("This is yet another snippet");</script>',
-		categories: ['uncategorized'],
-		tags: ['paywalled'],
-		isSitewide: false,
-		isAllPosts: false,
-	},
-];
-
 const Settings = () => {
+	const [ loadingSnippets, setLoadingSnippets ] = useState( false );
+	const [ snippets, setSnippets ] = useState( [] );
 	// const [ settings, setSettings ] = useState( {} );
 	// const [ editingSnippet, setEditingSnippet ] = useState();
 
-	// useEffect( () => {
-	// 	console.log( 'foobar' );
-	// }, [] );
+	useEffect( () => {
+		setLoadingSnippets( true );
+
+		apiFetch( { path: '/revpress/v1/snippets' } )
+		.then( setSnippets )
+		.catch( console.error )
+		.finally( () => setLoadingSnippets( false ) );
+	}, [] );
 
 	return (
 		<div className="revpress settings">
 			<Section heading={ __( 'Snippets', 'revpress' ) }>
-				<SnippetList snippets={ snippets } />
+				{ loadingSnippets ? (
+					<p>Loading...</p>
+				) : (
+					<SnippetList snippets={ snippets } />
+				) }
 			</Section>
 
 			<Section heading={ __( 'Settings', 'revpress' ) }>

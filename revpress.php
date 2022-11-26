@@ -26,3 +26,5 @@ if ( ! defined( 'REVPRESS_URL' ) ) {
 if ( is_admin() ) {
     require_once REVPRESS_PATH . 'includes/admin.php';
 }
+
+require_once REVPRESS_PATH . 'includes/rest-api.php';

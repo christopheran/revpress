@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $revpressGreen: rgb(0, 158, 18);
 
 #revpress {
@@ -86,8 +88,8 @@ $revpressGreen: rgb(0, 158, 18);
             }
         }
 
-        aside {
-            flex: 0 1 400px;
+        .sidebar {
+            flex: 0 1 350px;
             background-color: $revpressGreen;
         }
     }
@@ -113,6 +115,84 @@ $revpressGreen: rgb(0, 158, 18);
 
         >h2 {
             margin: 12px 0 16px;
+        }
+    }
+}
+
+// Sidebar component styles.
+.revpress.sidebar {
+    margin: 20px 0 0;
+    background-color: $revpressGreen;
+    font-size: 1rem;
+
+    >div {
+        box-sizing: border-box;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 16px;
+        background-color: white;
+        text-align: center;
+    }
+
+    .identity {
+        a {
+            color: initial;
+            text-decoration: none;
+        }
+
+        svg {
+            width: 200px;
+            height: auto;
+        }
+
+        p {
+            box-sizing: border-box;
+            margin: 0px;
+            padding: 16px 0;
+            color: $revpressGreen;
+            font-size: 1.1em;
+        }
+    }
+
+    h2 {
+        margin: 16px 0;
+        color: $revpressGreen;
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+
+    p {
+        margin: 8px 0;
+        font-size: 1em;
+
+        &.green {
+            color: $revpressGreen;
+        }
+
+        a[href] {
+            color: $revpressGreen;
+            text-decoration: underline;
+        }
+    }
+
+    .offer {
+        text-align: left;
+
+        ul {
+            box-sizing: border-box;
+            list-style: disc;
+            padding: 0 0 0 20px;
+        }
+    }
+
+    .join .components-button {
+        --wp-admin-theme-color: #{$revpressGreen};
+        --wp-admin-theme-color-darker-10: #{color.scale($revpressGreen, $lightness: -10%)};
+        --wp-admin-theme-color-darker-20: #{color.scale($revpressGreen, $lightness: -20%)};
+        font-size: 1em;
+
+        .dashicon {
+            margin-left: 8px;
         }
     }
 }
