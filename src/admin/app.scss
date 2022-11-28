@@ -5,7 +5,6 @@ $revpressGreen: rgb(0, 158, 18);
 #revpress {
     box-sizing: border-box;
     padding: 10px;
-    background-color: white;
     margin: 0 auto;
     max-width: 1600px;
 
@@ -75,6 +74,12 @@ $revpressGreen: rgb(0, 158, 18);
         }
 
         .settings {
+            background-color: white;
+            border: 1px solid $revpressGreen;
+            border-radius: 25px;
+            margin-top: 20px;
+            padding: 15px 25px;
+
             .field {
                 >h3 {
                     margin: 0;
@@ -91,7 +96,6 @@ $revpressGreen: rgb(0, 158, 18);
 
         .sidebar {
             flex: 0 1 350px;
-            background-color: $revpressGreen;
         }
     }
 }
@@ -108,7 +112,10 @@ $revpressGreen: rgb(0, 158, 18);
 // Settings component styles.
 .revpress.settings {
     >section {
-        padding: 20px 0;
+        border: 1px solid $revpressGreen;
+        padding: 20px;
+        margin: 20px;
+        border-radius: 25px;
 
         &:last-of-type {
             margin-bottom: 0;
@@ -122,17 +129,21 @@ $revpressGreen: rgb(0, 158, 18);
 
 // Sidebar component styles.
 .revpress.sidebar {
-    margin: 20px 0 0;
-    background-color: $revpressGreen;
     font-size: 1rem;
 
     >div {
         box-sizing: border-box;
         padding: 10px;
         border-radius: 5px;
-        margin: 16px;
+        margin: 16px 0;
         background-color: white;
+        border: 1px solid $revpressGreen;
+        border-radius: 25px;
         text-align: center;
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
     }
 
     .identity {
@@ -184,6 +195,11 @@ $revpressGreen: rgb(0, 158, 18);
             box-sizing: border-box;
             list-style: disc;
             padding: 0 0 0 20px;
+
+            li {
+                line-height: 22px;
+                margin-bottom: 12px;
+            }
         }
     }
 
@@ -218,18 +234,7 @@ $revpressGreen: rgb(0, 158, 18);
         box-sizing: border-box;
         margin: 0;
         padding: 12px;
-        border-width: 0;
-        border-color: #DDDDDD;
-        border-style: solid;
-        border-left-width: 1px;
-        border-right-width: 1px;
-        border-bottom-width: 1px;
-        border-collapse: collapse;
         width: 100%;
-
-        &:first-of-type {
-            border-top-width: 1px;
-        }
 
         .identifier {
             flex: 0 0 15ch;
