@@ -86,7 +86,7 @@ const Sidebar = () => (
 			</p>
 			<p>
 				<RawHTML>
-					{ sprintf( __( 'Premium support for RevPress Pro members is available through the <a href="%s">RevPress Forum</a>.', 'revpress' ), 'https://rev.press/forum' ) }
+					{ sprintf( __( 'Premium support for RevPress Pro members is available through the <a href="%s">RevPress Forum</a>.', 'revpress' ), 'https://rev.press/community/' ) }
 				</RawHTML>
 			</p>
 
@@ -100,8 +100,8 @@ const Sidebar = () => (
 				<RawHTML>
 					{
 						sprintf(
-							__( 'If you need help with <em>Subscribe with Google</em> (applying, billing, managing subscribers, payments), visit the <a href="%s">Google Publisher Center Help Forum</a> or contact <a href="%s">Google SwG Publisher Forum</a>.', 'revpress' ),
-							'https://rev.press/forum',
+							__( 'If you need help with <em>Subscribe with Google</em> (applying, billing, managing subscribers, payments), visit the <a href="%s">Google Publisher Center Help Forum</a> or contact <a href="%s">Google SwG Publisher Support</a>.', 'revpress' ),
+							'https://support.google.com/news/publisher-center/threads',
 							'https://support.google.com/news/publisher-center/contact/swg_default'
 						)
 					}

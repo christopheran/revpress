@@ -12,8 +12,7 @@ const App = () => {
 
 	return (
 		<>
-			<Header />
-			<Navigation current={ view } navigate={ setView } />
+			<Header current={ view } navigate={ setView } />
 			<section className="content">
 				{ view === 'settings' ? <Settings /> : <Guide /> }
 				<Sidebar />

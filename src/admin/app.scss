@@ -11,13 +11,15 @@ $revpressGreen: rgb(0, 158, 18);
     header {
         box-sizing: border-box;
         padding: 0 1rem;
+        display: flex;
+        align-items: center;
+        gap: 30px;
     }
 
     nav {
         box-sizing: border-box;
         padding: 0 1em;
         margin: 1em 0 0;
-        border-bottom: 4px solid #EFEFEF;
         font-size: 1rem;
 
         ol {
@@ -207,16 +209,21 @@ $revpressGreen: rgb(0, 158, 18);
         --wp-admin-theme-color: #{$revpressGreen};
         --wp-admin-theme-color-darker-10: #{color.scale($revpressGreen, $lightness: -10%)};
         --wp-admin-theme-color-darker-20: #{color.scale($revpressGreen, $lightness: -20%)};
-        font-size: 1.8em;
+        font-size: 20px;
         height: auto;
-        padding: 12px 24px;
+        padding: 5px 20px;
+        margin: 10px 0;
         line-height: 1;
+        border-radius: 20px;
 
         .dashicon {
             margin-left: 8px;
             height: 28px;
             width: 28px;
-            font-size: 30px;
+
+            &::before {
+                vertical-align: middle;
+            }
         }
     }
 }
