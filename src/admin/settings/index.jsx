@@ -1,7 +1,7 @@
 import { useState, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
-import { CheckboxControl } from '@wordpress/components';
+import { CheckboxControl, Spinner } from '@wordpress/components';
 
 import Section from './section';
 import SnippetList from './snippet-list';
@@ -26,7 +26,13 @@ const Settings = () => {
 		<div className="revpress settings">
 			<Section heading={ __( 'Snippets', 'revpress' ) }>
 				{ loadingSnippets ? (
-					<p>Loading...</p>
+					<div className="loading">
+						<Spinner
+							style={{
+								height: '50px',
+								width: '50px'
+							}} />
+					</div>
 				) : (
 					<SnippetList snippets={ snippets } />
 				) }
