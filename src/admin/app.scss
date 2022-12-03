@@ -8,13 +8,53 @@ $revpressGreen: rgb(0, 158, 18);
     margin: 0 auto;
     max-width: 1600px;
 
-    header {
+    .content {
         box-sizing: border-box;
-        padding: 0 1rem;
         display: flex;
-        align-items: center;
-        gap: 30px;
+        flex-direction: row;
+        max-width: 1400px;
+        margin: 0 auto;
+        gap: 16px;
+        font-size: 1rem;
+
+        >:first-child {
+            flex: 1 1 auto;
+        }
+
+        .settings {
+            background-color: white;
+            border: 1px solid $revpressGreen;
+            border-radius: 25px;
+            margin-top: 20px;
+            padding: 15px 25px;
+
+            .field {
+                >h3 {
+                    margin: 0;
+                    display: block;
+                    font-size: 1.2em;
+                }
+
+                p.description {
+                    color: #666666;
+                    font-size: 1em;
+                }
+            }
+        }
+
+        .sidebar {
+            flex: 0 1 350px;
+        }
     }
+}
+
+// Header component styles.
+.revpress.header {
+    box-sizing: border-box;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 30px;
 
     nav {
         box-sizing: border-box;
@@ -61,49 +101,10 @@ $revpressGreen: rgb(0, 158, 18);
             }
         }
     }
-
-    .content {
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: row;
-        max-width: 1400px;
-        margin: 0 auto;
-        gap: 16px;
-        font-size: 1rem;
-
-        >:first-child {
-            flex: 1 1 auto;
-        }
-
-        .settings {
-            background-color: white;
-            border: 1px solid $revpressGreen;
-            border-radius: 25px;
-            margin-top: 20px;
-            padding: 15px 25px;
-
-            .field {
-                >h3 {
-                    margin: 0;
-                    display: block;
-                    font-size: 1.2em;
-                }
-
-                p.description {
-                    color: #666666;
-                    font-size: 1em;
-                }
-            }
-        }
-
-        .sidebar {
-            flex: 0 1 350px;
-        }
-    }
 }
 
-// SnippetEditor component styles.
-.revpress.snippet-editor {
+// CodeEditor component styles.
+.revpress.code-editor {
 
     // Styles the code editor.
     .CodeMirror {
@@ -123,8 +124,23 @@ $revpressGreen: rgb(0, 158, 18);
             margin-bottom: 0;
         }
 
-        >h2 {
-            margin: 12px 0 16px;
+        >header {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: flex-start;
+
+            >* {
+                flex: 1 1 auto;
+            }
+
+            h2 {
+                margin: 12px 0 16px;
+            }
+
+            .actions {
+                flex: 0 0 auto;
+            }
         }
 
         .loading {
@@ -278,10 +294,40 @@ $revpressGreen: rgb(0, 158, 18);
             flex-direction: row;
             align-items: center;
             gap: 8px;
-
-            button {
-                padding: 6px 12px;
-            }
         }
+    }
+}
+
+// SnippetEditor component styles.
+.revpress.snippet-editor {
+    .submit button {
+        margin-right: 10px;
+    }
+}
+
+// Modify padding on Button from @wordpress/components when the button
+// has an icon and text. The default padding leaves the text too close
+// to the edge of the button.
+.components-button.has-text.has-icon {
+    padding: 6px 12px;
+}
+
+// When a WP component is used within a 'field' class element, we want
+// modify the styling to match the rest of the interface.
+.field .components-base-control {
+    font-family: inherit;
+    font-size: inherit;
+
+    .components-base-control__label {
+        font-size: 1em;
+        text-transform: none;
+    }
+
+    .components-base-control__help {
+        font-size: 0.9em;
+    }
+
+    .components-text-control__input {
+        font-size: 1em;
     }
 }

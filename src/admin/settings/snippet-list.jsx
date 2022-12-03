@@ -1,7 +1,7 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { Dashicon, Button, ToggleControl } from '@wordpress/components';
 
-const SnippetList = ( { snippets = [] } ) => (
+const SnippetList = ( { snippets = [], editSnippet } ) => (
 	<ul className="revpress snippet-list">
 		{ snippets.map( ( snippet ) => (
 			<li key={ snippet.id }>
@@ -61,7 +61,10 @@ const SnippetList = ( { snippets = [] } ) => (
 				</div> */}
 
 				<div className="actions">
-					<Button variant="secondary" icon="edit">{ __( 'Edit', 'revpress' ) }</Button>
+					<Button
+						onClick={ (event) => editSnippet( snippet ) }
+						variant="secondary"
+						icon="edit">{ __( 'Edit', 'revpress' ) }</Button>
 					<Button variant="secondary" icon="trash" isDestructive>{ __( 'Delete', 'revpress' ) }</Button>
 				</div>
 			</li>
