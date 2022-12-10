@@ -1,12 +1,27 @@
 import { useState, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { BaseControl, TextControl, Button } from '@wordpress/components';
+import { BaseControl, TextControl, Button, ToggleControl } from '@wordpress/components';
 
 import CodeEditor from './code-editor';
 
-const SnippetEditor = ({ snippet, cancel }) => {
+const SnippetEditor = ({ snippet, cancel, saveSnippet, savingSnippet }) => {
+    const [ enabled, setEnabled ] = useState( true );
     const [ content, setContent ] = useState( snippet ? snippet.content : "" );
     const [ name, setName ] = useState( snippet ? snippet.name : "" );
+
+    const save = () => {
+        const snippetData = {
+            enabled,
+            content,
+            name
+        };
+
+        if ( snippet ) {
+            snippetData.id = snippet.id;
+        }
+
+        saveSnippet( snippetData );
+    };
 
     return (
         <section className="revpress snippet-editor">
@@ -37,15 +52,27 @@ const SnippetEditor = ({ snippet, cancel }) => {
                 />
             </div>
 
+            <div className="field">
+                <ToggleControl
+                    label={ __( 'Show Snippet', 'revpress' ) }
+                    checked={ enabled }
+                    help={ __( 'When a snippet is not enabled, it is no longer included on the site.' ) }
+                    onChange={ ( checked ) => setEnabled( checked ) }
+                />
+            </div>
+
             <div className="submit">
                 <Button
-                    variant="primary">
+                    variant="primary"
+                    onClick={ ( event ) => save() }
+                    disabled={ savingSnippet }>
                     { __( 'Save Snippet', 'revpress' ) }
                 </Button>
 
                 <Button
                     variant="secondary"
-                    onClick={ ( event ) => cancel() }>
+                    onClick={ ( event ) => cancel() }
+                    disabled={ savingSnippet }>
                     { __( 'Cancel', 'revpress' ) }
                 </Button>
             </div>

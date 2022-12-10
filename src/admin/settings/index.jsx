@@ -1,8 +1,8 @@
 import { useState, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import apiFetch from '@wordpress/api-fetch';
 import { CheckboxControl, Spinner, Button } from '@wordpress/components';
 
+import { searchSnippets, createSnippet } from '../../api';
 import SnippetList from './snippet-list';
 import SnippetEditor from './snippet-editor';
 
@@ -11,15 +11,33 @@ const Settings = () => {
 	const [ snippets, setSnippets ] = useState( [] );
 	const [ rolesAllowed, setRolesAllowed ] = useState( window.revpress.roles );
 	const [ editingSnippet, setEditingSnippet ] = useState();
+	const [ savingSnippet, setSavingSnippet ] = useState(false);
 
 	useEffect( () => {
 		setLoadingSnippets( true );
 
-		apiFetch( { path: '/revpress/v1/snippets' } )
-		.then( setSnippets )
-		.catch( console.error )
-		.finally( () => setLoadingSnippets( false ) );
+		searchSnippets()
+			.then( setSnippets )
+			.catch( console.error )
+			.finally( () => setLoadingSnippets( false ) );
 	}, [] );
+
+	const saveSnippet = ( snippet ) => {
+		if (snippet.id) {
+			// Cannot update yet.
+			return;
+		}
+
+		setSavingSnippet( true );
+
+		createSnippet( snippet )
+			.then( ( result ) => {
+				const newSnippets = snippets.concat( result );
+				setSnippets( newSnippets );
+			} )
+			.catch( console.error )
+			.finally( () => setSavingSnippet( false ) );
+	};
 
 	return (
 		<div className="revpress settings">
@@ -94,7 +112,9 @@ const Settings = () => {
 			) :
 			<SnippetEditor
 				snippet={ editingSnippet }
-				cancel={ () => setEditingSnippet(undefined) } />
+				cancel={ () => setEditingSnippet(undefined) }
+				saveSnippet={ saveSnippet }
+				savingSnippet={ savingSnippet } />
 		}
 		</div>
 	);

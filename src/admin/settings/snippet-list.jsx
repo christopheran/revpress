@@ -10,7 +10,7 @@ const SnippetList = ( { snippets = [], editSnippet } ) => (
 				</div>
 
 				<div className="constraints">
-					{ snippet.is_sitewide && (
+					{ snippet.constraints.whole_site && (
 						<div className="constraint sitewide">
 							<div className="icon">
 								<Dashicon icon="admin-site" />
@@ -20,7 +20,7 @@ const SnippetList = ( { snippets = [], editSnippet } ) => (
 							</p>
 						</div>
 					) }
-					{ snippet.is_all_posts && (
+					{ /* snippet.is_all_posts && (
 						<div className="constraint allposts">
 							<div className="icon">
 								<Dashicon icon="admin-post" />
@@ -49,7 +49,7 @@ const SnippetList = ( { snippets = [], editSnippet } ) => (
 								{ sprintf( __( 'This snippet is active on posts with these tags: %s', 'revpress' ), snippet.tags.join(', ') ) }
 							</p>
 						</div>
-					) }
+					) */ }
 				</div>
 
 				{/* <div className="activation">

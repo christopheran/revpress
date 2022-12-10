@@ -300,6 +300,10 @@ $revpressGreen: rgb(0, 158, 18);
 
 // SnippetEditor component styles.
 .revpress.snippet-editor {
+    .field {
+        margin: 20px 0;
+    }
+
     .submit button {
         margin-right: 10px;
     }
