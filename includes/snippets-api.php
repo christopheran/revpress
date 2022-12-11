@@ -18,6 +18,29 @@ function revpress_generate_snippet_id() {
 }
 
 /**
+ * Returns a single snippet if found. Returns null if the snippet is not found.
+ * 
+ * @since 0.1.0
+ * 
+ * @param string $snippet_id
+ * 
+ * @return \RevPress\Snippet|null
+ */
+function revpress_get_snippet( $snippet_id ) {
+    $snippets = revpress_list_snippets();
+
+    $matched_snippet = null;
+    foreach ( $snippets as $snippet ) {
+        if ( $snippet->id === $snippet_id ) {
+            $matched_snippet = $snippet;
+            break;
+        } 
+    }
+
+    return apply_filters( 'revpress_get_snippet', $matched_snippet, $snippet_id );
+}
+
+/**
  * Get a list of all snippets. Returns an unordered array of snippets keyed by snippet ID.
  * 
  * @since 0.1.0
@@ -59,6 +82,33 @@ function revpress_save_snippet( \RevPress\Snippet $snippet ) {
     $saved = update_option( 'revpress_snippets', $snippets );
 
     if ( ! $saved ) {
-        return new WP_Error( 'revpress_save_snippet_failed', __( 'Could not save snippet.', 'revpress' ) );
+        return new WP_Error( 'update_snippet_option_failed', "Could not update snippet option." );
+    }
+}
+
+/**
+ * Delete a snippet.
+ * 
+ * @since 0.1.0
+ * 
+ * @param \RevPress\Snippet $snippet
+ * 
+ * @return null|\WP_Error
+ */
+function revpress_delete_snippet( \RevPress\Snippet $snippet ) {
+    $snippets = get_option( 'revpress_snippets', array() );
+
+    if ( ! is_array( $snippets ) ) {
+        $snippets = array();
+    }
+
+    if ( array_key_exists( $snippet->id, $snippets ) ) {
+        unset( $snippets[$snippet->id] );
+    }
+
+    $saved = update_option( 'revpress_snippets', $snippets );
+
+    if ( ! $saved ) {
+        return new WP_Error( 'update_snippet_option_failed', "Could not update snippet option." );
     }
 }

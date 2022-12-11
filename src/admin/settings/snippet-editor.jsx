@@ -5,7 +5,7 @@ import { BaseControl, TextControl, Button, ToggleControl } from '@wordpress/comp
 import CodeEditor from './code-editor';
 
 const SnippetEditor = ({ snippet, cancel, saveSnippet, savingSnippet }) => {
-    const [ enabled, setEnabled ] = useState( true );
+    const [ enabled, setEnabled ] = useState( snippet ? snippet.enabled : true );
     const [ content, setContent ] = useState( snippet ? snippet.content : "" );
     const [ name, setName ] = useState( snippet ? snippet.name : "" );
 

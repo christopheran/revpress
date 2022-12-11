@@ -2,7 +2,7 @@ import { useState, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, Spinner, Button } from '@wordpress/components';
 
-import { searchSnippets, createSnippet } from '../../api';
+import * as revpressAPI from '../../api';
 import SnippetList from './snippet-list';
 import SnippetEditor from './snippet-editor';
 
@@ -12,11 +12,12 @@ const Settings = () => {
 	const [ rolesAllowed, setRolesAllowed ] = useState( window.revpress.roles );
 	const [ editingSnippet, setEditingSnippet ] = useState();
 	const [ savingSnippet, setSavingSnippet ] = useState(false);
+	const [ deletingSnippets, setDeletingSnippets ] = useState( [] );
 
 	useEffect( () => {
 		setLoadingSnippets( true );
 
-		searchSnippets()
+		revpressAPI.searchSnippets()
 			.then( setSnippets )
 			.catch( console.error )
 			.finally( () => setLoadingSnippets( false ) );
@@ -30,13 +31,29 @@ const Settings = () => {
 
 		setSavingSnippet( true );
 
-		createSnippet( snippet )
+		revpressAPI.createSnippet( snippet )
 			.then( ( result ) => {
 				const newSnippets = snippets.concat( result );
 				setSnippets( newSnippets );
 			} )
 			.catch( console.error )
 			.finally( () => setSavingSnippet( false ) );
+	};
+
+	const deleteSnippet = ( snippetId ) => {
+		const newDeletingSnippets = deletingSnippets.concat( snippetId );
+		setDeletingSnippets( newDeletingSnippets );
+
+		revpressAPI.deleteSnippet( snippetId )
+			.then( ( result ) => {
+				const newSnippets = snippets.filter( snippet => snippet.id != snippetId );
+				setSnippets( newSnippets );
+			})
+			.catch( console.error )
+			.finally( () => {
+				const newDeletingSnippets = deletingSnippets.filter( snippetToDelete => snippetToDelete != snippetId );
+				setDeletingSnippets( newDeletingSnippets );
+			} );
 	};
 
 	return (
@@ -65,8 +82,11 @@ const Settings = () => {
 							</div>
 						) : (
 							<SnippetList
+								snippets={ snippets }
 								editSnippet={ (snippet) => setEditingSnippet( snippet ) }
-								snippets={ snippets } />
+								deleting={ deletingSnippets }
+								deleteSnippet={ deleteSnippet }
+							/>
 						) }
 					</section>
 

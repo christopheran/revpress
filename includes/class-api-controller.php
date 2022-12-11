@@ -17,6 +17,22 @@ class ApiController extends WP_REST_Controller {
     public $namespace = '/revpress/1.0';
 
     public function register_routes() {
+        // register_rest_route(
+        //     $this->namespace,
+        //     '/test',
+        //     array(
+        //         'methods'  => 'GET',
+        //         'callback' => function($request) {
+        //             return new WP_Error(
+        //                 'bad_request.test',
+        //                 "Something happened, I don't know what.",
+        //                 array( 'status' => 400, 'beep' => 'boop' )
+        //             );
+        //         },
+        //         'permission_callback' => '__return_true'
+        //     )
+        // );
+
         register_rest_route(
             $this->namespace,
             '/snippets',
@@ -30,6 +46,18 @@ class ApiController extends WP_REST_Controller {
                     'methods'             => WP_REST_Server::CREATABLE,
                     'callback'            => array( $this, 'create_item' ),
                     'permission_callback' => array( $this, 'create_item_permissions_check' )
+                )
+            )
+        );
+
+        register_rest_route(
+            $this->namespace,
+            '/snippets/(?P<id>snip[a-fA-F0-9]{13})',
+            array(
+                array(
+                    'methods'             => WP_REST_Server::DELETABLE,
+                    'callback'            => array( $this, 'delete_item' ),
+                    'permission_callback' => array( $this, 'delete_item_permissions_check' )
                 )
             )
         );
@@ -54,8 +82,8 @@ class ApiController extends WP_REST_Controller {
     public function create_item( $request ) {
         if ( $request->has_param( 'id' ) ) {
             return new WP_Error(
-                'revpress_snippet_exists',
-                __( 'Cannot create existing snippet.', 'revpress' ),
+                'snippet_exists',
+                "Cannot create existing snippet.",
                 array( 'status' => 400 )
             );
         }
@@ -63,13 +91,25 @@ class ApiController extends WP_REST_Controller {
         $snippet = $this->prepare_item_for_database( $request );
 
         if ( is_wp_error( $snippet ) ) {
-            $snippet->add_data( $snippet->get_error_code(), array( 'status' => 400 ) );
+            // The request sent to the API is in some way invalid.
+            $response = rest_ensure_response( $snippet );
+            $response->set_status( 400 );
+
+            return $response;
         }
 
         $result = revpress_save_snippet( $snippet );
 
         if ( is_wp_error( $result ) ) {
-            $snippet->add_data( $snippet->get_error_code(), array( 'status' => 500 ) );
+            /*
+            The snippet could not be saved for some reason.
+            This is a server error.
+            */
+            return new WP_Error(
+                'save_snippet_failed',
+                "Snippet could not be saved.",
+                array( 'status' => 500 )
+            );
         }
 
         $data = $this->prepare_item_for_response( $snippet, $request );
@@ -80,6 +120,50 @@ class ApiController extends WP_REST_Controller {
     }
 
     public function create_item_permissions_check( $request ) {
+        return current_user_can( 'manage_revpress' );
+    }
+
+    public function delete_item( $request ) {
+        $snippet_id = $request->get_param( 'id' );
+
+        if ( empty( $snippet_id ) ) {
+            return new WP_Error(
+                'invalid_uri_parameter',
+                "Path must contain snippet ID.",
+                array(
+                    'status'    => 400,
+                    'parameter' => 'id',
+                    'error'     => 'required_parameter_empty'
+                )
+            );
+        }
+
+        $snippet = revpress_get_snippet( $snippet_id );
+
+        if ( ! $snippet ) {
+            return new WP_Error(
+                'item_not_found',
+                "Could not find snippet matching provided snippet ID.",
+                array( 'status' => 404 )
+            );
+        }
+
+        $result = revpress_delete_snippet( $snippet );
+
+        if ( is_wp_error( $result ) ) {
+            return new WP_Error(
+                'delete_snippet_failed',
+                "Snippet could not be deleted.",
+                array( 'status' => 500 )
+            );
+        }
+
+        $item = $this->prepare_item_for_response( $snippet, $request );
+
+        return new WP_REST_Response( $item, 200 );
+    }
+
+    public function delete_item_permissions_check( $request ) {
         return current_user_can( 'manage_revpress' );
     }
 
@@ -179,8 +263,12 @@ class ApiController extends WP_REST_Controller {
 
         if ( empty( $content ) ) {
             return new WP_Error(
-                'missing_content',
-                __( "Snippet content is required.", 'revpress' )
+                'invalid_field',
+                "Snippet content is required.",
+                array(
+                    'field' => 'content',
+                    'error' => 'required_field_empty'
+                )
             );
         }
 
