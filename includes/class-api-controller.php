@@ -17,22 +17,6 @@ class ApiController extends WP_REST_Controller {
     public $namespace = '/revpress/1.0';
 
     public function register_routes() {
-        // register_rest_route(
-        //     $this->namespace,
-        //     '/test',
-        //     array(
-        //         'methods'  => 'GET',
-        //         'callback' => function($request) {
-        //             return new WP_Error(
-        //                 'bad_request.test',
-        //                 "Something happened, I don't know what.",
-        //                 array( 'status' => 400, 'beep' => 'boop' )
-        //             );
-        //         },
-        //         'permission_callback' => '__return_true'
-        //     )
-        // );
-
         register_rest_route(
             $this->namespace,
             '/snippets',
