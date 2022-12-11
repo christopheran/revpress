@@ -65,14 +65,17 @@ const SnippetEditor = ({ snippet, cancel, saveSnippet, savingSnippet }) => {
                 <Button
                     variant="primary"
                     onClick={ ( event ) => save() }
-                    disabled={ savingSnippet }>
+                    disabled={ savingSnippet }
+                    isBusy={ savingSnippet }
+                >
                     { __( 'Save Snippet', 'revpress' ) }
                 </Button>
 
                 <Button
                     variant="secondary"
                     onClick={ ( event ) => cancel() }
-                    disabled={ savingSnippet }>
+                    disabled={ savingSnippet }
+                >
                     { __( 'Cancel', 'revpress' ) }
                 </Button>
             </div>
