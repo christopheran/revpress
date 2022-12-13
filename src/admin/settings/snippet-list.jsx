@@ -3,6 +3,14 @@ import { Dashicon, Button } from '@wordpress/components';
 
 const SnippetList = ( { snippets = [], editSnippet, deleting = [], deleteSnippet } ) => (
 	<ul className="revpress snippet-list">
+		{ snippets.length < 1 && (
+			<li>
+				<div className="no-results">
+					<p>{ __( 'There are no snippets yet.', 'revpress' ) }</p>
+				</div>
+			</li>
+		)}
+
 		{ snippets.map( ( snippet ) => {
 			const deletingSnippet = ( deleting.indexOf( snippet.id ) >= 0 );
 

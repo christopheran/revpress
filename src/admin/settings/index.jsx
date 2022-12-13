@@ -24,20 +24,25 @@ const Settings = () => {
 	}, [] );
 
 	const saveSnippet = ( snippet ) => {
-		if (snippet.id) {
-			// Cannot update yet.
-			return;
-		}
-
 		setSavingSnippet( true );
 
-		revpressAPI.createSnippet( snippet )
-			.then( ( result ) => {
-				const newSnippets = snippets.concat( result );
-				setSnippets( newSnippets );
-			} )
-			.catch( console.error )
-			.finally( () => setSavingSnippet( false ) );
+		if ( snippet.id ) {
+			revpressAPI.updateSnippet( snippet )
+				.then( ( result ) => {
+					const newSnippets = snippets.filter( _snippet => _snippet.id != snippet.id ).concat( snippet );
+					setSnippets( newSnippets );
+				} )
+				.catch( console.error )
+				.finally( () => setSavingSnippet( false ) );
+		} else {
+			revpressAPI.createSnippet( snippet )
+				.then( ( result ) => {
+					const newSnippets = snippets.concat( result );
+					setSnippets( newSnippets );
+				} )
+				.catch( console.error )
+				.finally( () => setSavingSnippet( false ) );
+		}
 	};
 
 	const deleteSnippet = ( snippetId ) => {
@@ -56,86 +61,90 @@ const Settings = () => {
 			} );
 	};
 
+	if ( editingSnippet !== undefined ) {
+		return (
+			<div className="revpress settings">
+				<SnippetEditor
+					snippet={ editingSnippet }
+					cancel={ () => setEditingSnippet( undefined ) }
+					saveSnippet={ saveSnippet }
+					savingSnippet={ savingSnippet } />
+			</div>
+		);
+	}
+
 	return (
 		<div className="revpress settings">
-			{ editingSnippet === undefined ? (
-				<>
-					<section>
-						<header>
-							<h2>{ __( 'Snippets', 'revpress' ) }</h2>
-							<div className="actions">
-								<Button
-									onClick={ (event) => setEditingSnippet( null ) }
-									variant="secondary"
-									icon="plus">
-									{ __( 'New Snippet', 'revpress' ) }
-								</Button>
-							</div>
-						</header>
-						{ loadingSnippets ? (
-							<div className="loading">
-								<Spinner
-									style={{
-										height: '50px',
-										width: '50px'
-									}} />
-							</div>
-						) : (
-							<SnippetList
-								snippets={ snippets }
-								editSnippet={ (snippet) => setEditingSnippet( snippet ) }
-								deleting={ deletingSnippets }
-								deleteSnippet={ deleteSnippet }
-							/>
+			<section>
+
+				<header>
+					<h2>{ __( 'Snippets', 'revpress' ) }</h2>
+					<div className="actions">
+						<Button
+							onClick={ (event) => setEditingSnippet( null ) }
+							variant="secondary"
+							icon="plus">
+							{ __( 'New Snippet', 'revpress' ) }
+						</Button>
+					</div>
+				</header>
+
+				{ loadingSnippets ? (
+					<div className="loading">
+						<Spinner style={{ height: '50px', width: '50px' }} />
+					</div>
+				) : (
+					<SnippetList
+						snippets={ snippets }
+						editSnippet={ (snippet) => setEditingSnippet( snippet ) }
+						deleting={ deletingSnippets }
+						deleteSnippet={ deleteSnippet }
+					/>
+				) }
+
+			</section>
+
+			<section>
+
+				<header>
+					<h2>{ __( 'Settings', 'revpress' ) }</h2>
+				</header>
+
+				<div className="field">
+					<h3>
+						{ __( 'Settings Access', 'revpress' ) }
+					</h3>
+					<p className="description">
+						{ __(
+							'Configure which user roles can access this settings page. Only Administrators and Super Administrators can modify this setting.',
+							'revpress'
 						) }
-					</section>
+					</p>
+					<ul>
+						{ rolesAllowed.map( ( role ) => (
+							<li key={ role.slug }>
+								<CheckboxControl
+									__nextHasNoMarginBottom
+									label={ role.name }
+									disabled={ role.slug === 'administrator' }
+									checked={ role.allowed }
+									onChange={ ( isAllowed ) => {
+										const newRolesAllowed = [ ...rolesAllowed ];
+										const targetRole = newRolesAllowed.find( ( candidate ) => candidate.slug === role.slug );
 
-					<section>
-						<header>
-							<h2>{ __( 'Settings', 'revpress' ) }</h2>
-						</header>
-						<div className="field">
-							<h3>
-								{ __( 'Settings Access', 'revpress' ) }
-							</h3>
-							<p className="description">
-								{ __(
-									'Configure which user roles can access this settings page. Only Administrators and Super Administrators can modify this setting.',
-									'revpress'
-								) }
-							</p>
-							<ul>
-								{ rolesAllowed.map( ( role ) => (
-									<li key={ role.slug }>
-										<CheckboxControl
-											__nextHasNoMarginBottom
-											label={ role.name }
-											disabled={ role.slug === 'administrator' }
-											checked={ role.allowed }
-											onChange={ ( isAllowed ) => {
-												const newRolesAllowed = [ ...rolesAllowed ];
-												const targetRole = newRolesAllowed.find( ( candidate ) => candidate.slug === role.slug );
+										if ( targetRole ) {
+											targetRole.allowed = isAllowed;
+										}
 
-												if ( targetRole ) {
-													targetRole.allowed = isAllowed;
-												}
+										setRolesAllowed( newRolesAllowed );
+									} }
+								/>
+							</li>
+						) ) }
+					</ul>
+				</div>
 
-												setRolesAllowed( newRolesAllowed );
-											} }
-										/>
-									</li>
-								))}
-							</ul>
-						</div>
-					</section>
-				</>
-			) :
-			<SnippetEditor
-				snippet={ editingSnippet }
-				cancel={ () => setEditingSnippet(undefined) }
-				saveSnippet={ saveSnippet }
-				savingSnippet={ savingSnippet } />
-		}
+			</section>
 		</div>
 	);
 };

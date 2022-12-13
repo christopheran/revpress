@@ -295,6 +295,16 @@ $revpressGreen: rgb(0, 158, 18);
             align-items: center;
             gap: 8px;
         }
+
+        .no-results {
+            flex: 1 1 100%;
+
+            p {
+                margin: 0;
+                font-size: 1em;
+                text-align: center;
+            }
+        }
     }
 }
 
