@@ -29,7 +29,7 @@ const Settings = () => {
 		if ( snippet.id ) {
 			revpressAPI.updateSnippet( snippet )
 				.then( ( result ) => {
-					const newSnippets = snippets.filter( _snippet => _snippet.id != snippet.id ).concat( snippet );
+					const newSnippets = snippets.filter( _snippet => _snippet.id != snippet.id ).concat( result );
 					setSnippets( newSnippets );
 				} )
 				.catch( console.error )

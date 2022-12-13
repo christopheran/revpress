@@ -8,8 +8,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Snippet {
 
-    public $version;
-
     public $id;
 
     public $enabled;
@@ -25,20 +23,20 @@ class Snippet {
 
     public function __serialize() {
         return array(
-            $this->version,
-            $this->id,
-            $this->enabled,
-            base64_encode( $this->content ),
-            $this->name
+            'id'          => $this->id,
+            'enabled'     => $this->enabled,
+            'content'     => base64_encode( $this->content ),
+            'name'        => $this->name,
+            'constraints' => serialize( $this->constraints )
         );
     }
 
     public function __unserialize( $data ) {
-        $this->version = $data[0];
-        $this->id = $data[1];
-        $this->enabled = $data[2];
-        $this->content = base64_decode( $data[3] );
-        $this->name = $data[4];
+        $this->id = $data['id'];
+        $this->enabled = $data['enabled'];
+        $this->content = base64_decode( $data['content'] );
+        $this->name = $data['name'];
+        $this->constraints = unserialize( $data['constraints'] );
     }
 
 }

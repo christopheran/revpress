@@ -15,6 +15,14 @@ function createSnippet( snippet ) {
     });
 }
 
+function updateSnippet( snippet ) {
+    return apiFetch({
+        path: `/revpress/1.0/snippets/${snippet.id}`,
+        method: 'PUT',
+        data: snippet
+    });
+}
+
 function deleteSnippet( snippetId ) {
     return apiFetch({
         path: `/revpress/1.0/snippets/${snippetId}`,
@@ -25,5 +33,6 @@ function deleteSnippet( snippetId ) {
 export {
     searchSnippets,
     createSnippet,
+    updateSnippet,
     deleteSnippet
 };

@@ -73,10 +73,6 @@ function revpress_save_snippet( \RevPress\Snippet $snippet ) {
         $snippets = array();
     }
 
-    if ( ! $snippet->id ) {
-        $snippet->id = revpress_generate_snippet_id();
-    }
-
     $snippets[$snippet->id] = $snippet;
 
     $saved = update_option( 'revpress_snippets', $snippets );

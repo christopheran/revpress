@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Snippet_Constraints {
 
-    public $whole_site;
+    public $whole_site = false;
 
     public $post_types = [];
 
