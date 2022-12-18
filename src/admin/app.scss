@@ -308,6 +308,17 @@ $revpressGreen: rgb(0, 158, 18);
     }
 }
 
+// GeneralSettings component styles.
+.revpress.general-settings {
+
+    .settings-access ul {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto;
+    }
+
+}
+
 // SnippetEditor component styles.
 .revpress.snippet-editor {
     .field {

@@ -5,11 +5,11 @@ import { CheckboxControl, Spinner, Button } from '@wordpress/components';
 import * as revpressAPI from '../../api';
 import SnippetList from './snippet-list';
 import SnippetEditor from './snippet-editor';
+import GeneralSettings from './general';
 
 const Settings = () => {
 	const [ loadingSnippets, setLoadingSnippets ] = useState( false );
 	const [ snippets, setSnippets ] = useState( [] );
-	const [ rolesAllowed, setRolesAllowed ] = useState( window.revpress.roles );
 	const [ editingSnippet, setEditingSnippet ] = useState();
 	const [ savingSnippet, setSavingSnippet ] = useState(false);
 	const [ deletingSnippets, setDeletingSnippets ] = useState( [] );
@@ -110,39 +110,7 @@ const Settings = () => {
 					<h2>{ __( 'Settings', 'revpress' ) }</h2>
 				</header>
 
-				<div className="field">
-					<h3>
-						{ __( 'Settings Access', 'revpress' ) }
-					</h3>
-					<p className="description">
-						{ __(
-							'Configure which user roles can access this settings page. Only Administrators and Super Administrators can modify this setting.',
-							'revpress'
-						) }
-					</p>
-					<ul>
-						{ rolesAllowed.map( ( role ) => (
-							<li key={ role.slug }>
-								<CheckboxControl
-									__nextHasNoMarginBottom
-									label={ role.name }
-									disabled={ role.slug === 'administrator' }
-									checked={ role.allowed }
-									onChange={ ( isAllowed ) => {
-										const newRolesAllowed = [ ...rolesAllowed ];
-										const targetRole = newRolesAllowed.find( ( candidate ) => candidate.slug === role.slug );
-
-										if ( targetRole ) {
-											targetRole.allowed = isAllowed;
-										}
-
-										setRolesAllowed( newRolesAllowed );
-									} }
-								/>
-							</li>
-						) ) }
-					</ul>
-				</div>
+				<GeneralSettings />
 
 			</section>
 		</div>
