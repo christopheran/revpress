@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 import { CheckboxControl } from "@wordpress/components";
 
 const GeneralSettings = ( props ) => {
-    const [ rolesAllowed, setRolesAllowed ] = useState( window.revpress.roles );
+    const [ rolesAllowed, setRolesAllowed ] = useState( [ ...window.revpress.roles ] );
 
     return (
         <div className="revpress general-settings">

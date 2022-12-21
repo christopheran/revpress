@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class ApiController extends WP_REST_Controller {
 
-    public $namespace = '/revpress/1.0';
+    public $namespace = 'revpress/1.0';
 
     public function register_routes() {
         register_rest_route(
@@ -81,9 +81,7 @@ class ApiController extends WP_REST_Controller {
 
         if ( is_wp_error( $snippet ) ) {
             // The request sent to the API is in some way invalid.
-            $response = rest_ensure_response( $snippet );
-            $response->set_status( 400 );
-            return $response;
+            return new WP_REST_Response( $snippet->get_error_data(), 400 );
         }
 
         $snippet->id = revpress_generate_snippet_id();
@@ -141,9 +139,7 @@ class ApiController extends WP_REST_Controller {
         $new_snippet = $this->prepare_item_for_database( $request );
 
         if ( is_wp_error( $new_snippet ) ) {
-            $response = rest_ensure_response( $new_snippet );
-            $response->set_status( 400 );
-            return $response;
+            return new WP_REST_Response( $new_snippet->get_error_data(), 400 );
         }
 
         $new_snippet->id = $old_snippet->id;

@@ -1,9 +1,9 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { Dashicon, Button } from '@wordpress/components';
 
-const SnippetList = ( { snippets = [], editSnippet, deleting = [], deleteSnippet } ) => (
+const SnippetList = ( { snippets, editSnippet, deleteSnippet } ) => (
 	<ul className="revpress snippet-list">
-		{ snippets.length < 1 && (
+		{ snippets.all.length < 1 && (
 			<li>
 				<div className="no-results">
 					<p>{ __( 'There are no snippets yet.', 'revpress' ) }</p>
@@ -11,8 +11,8 @@ const SnippetList = ( { snippets = [], editSnippet, deleting = [], deleteSnippet
 			</li>
 		)}
 
-		{ snippets.map( ( snippet ) => {
-			const deletingSnippet = ( deleting.indexOf( snippet.id ) >= 0 );
+		{ snippets.all.map( ( snippet ) => {
+			const deletingSnippet = ( snippets.deleting.indexOf( snippet.id ) >= 0 );
 
 			return (
 				<li key={ snippet.id }>
