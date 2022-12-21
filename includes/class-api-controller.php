@@ -144,14 +144,17 @@ class ApiController extends WP_REST_Controller {
 
         $new_snippet->id = $old_snippet->id;
 
-        $result = revpress_save_snippet( $new_snippet );
+        // Only call revpress_save_snippet if the snippet has changed.
+        if ( ! revpress_snippets_equal( $old_snippet, $new_snippet ) ) {
+            $result = revpress_save_snippet( $new_snippet );
 
-        if ( is_wp_error( $result ) ) {
-            return new WP_Error(
-                'update_item_failed',
-                "Snippet could not be updated.",
-                array( 'status' => 500 )
-            );
+            if ( is_wp_error( $result ) ) {
+                return new WP_Error(
+                    'update_item_failed',
+                    "Snippet could not be updated.",
+                    array( 'status' => 500 )
+                );
+            }
         }
 
         $data = $this->prepare_item_for_response( $new_snippet, $request );

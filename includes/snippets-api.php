@@ -108,3 +108,46 @@ function revpress_delete_snippet( \RevPress\Snippet $snippet ) {
         return new WP_Error( 'update_snippet_option_failed', "Could not update snippet option." );
     }
 }
+
+
+/**
+ * Check if two snippets are equal to each other.
+ * 
+ * @since 0.1.0
+ * 
+ * @param \RevPress\Snippet $snippet_a
+ * @param \RevPress\Snippet $snippet_b
+ * 
+ * @return bool
+ */
+function revpress_snippets_equal( $snippet_a, $snippet_b ) {
+    $equal = (
+        $snippet_a->id == $snippet_b->id
+        && $snippet_a->enabled == $snippet_b->enabled
+        && $snippet_a->content == $snippet_b->content
+        && $snippet_a->name == $snippet_b->name
+        && revpress_snippet_constraints_equal( $snippet_a->constraints, $snippet_b->constraints )
+    );
+
+    return apply_filters( 'revpress_snippets_equal', $equal, $snippet_a, $snippet_b );
+}
+
+/**
+ * Check if two snippet constraints objects are equal to each other.
+ * 
+ * @since 0.1.0
+ * 
+ * @param RevPress\Snippet_Constraints $constraints_a
+ * @param RevPress\Snippet_Constraints $constraints_b
+ * 
+ * @return bool
+ */
+function revpress_snippet_constraints_equal( $constraints_a, $constraints_b ) {
+    $equal = (
+        $constraints_a->whole_site == $constraints_b->whole_site
+        && $constraints_a->post_types == $constraints_b->post_types
+        && $constraints_a->terms == $constraints_b->terms
+    );
+
+    return apply_filters( 'revpress_snippet_constraints_equal', $equal, $constraints_a, $constraints_b );
+}
