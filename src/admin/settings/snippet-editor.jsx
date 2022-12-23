@@ -1,13 +1,15 @@
-import { useState, useEffect } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { BaseControl, TextControl, Button, ToggleControl } from '@wordpress/components';
 
 import CodeEditor from './code-editor';
+import CategorySelector from './category-selector';
 
-const SnippetEditor = ({ snippet, cancel, saveSnippet, savingSnippet }) => {
+const SnippetEditor = ({ snippet, cancel, saveSnippet, savingSnippet, categories }) => {
     const [ enabled, setEnabled ] = useState( snippet ? snippet.enabled : true );
     const [ content, setContent ] = useState( snippet ? snippet.content : "" );
     const [ name, setName ] = useState( snippet ? snippet.name : "" );
+    const [ selectedCategories, setSelectedCategories ] = useState( [] );
 
     const save = () => {
         const snippetData = {
@@ -40,7 +42,11 @@ const SnippetEditor = ({ snippet, cancel, saveSnippet, savingSnippet }) => {
             </div>
 
             <div className="field">
-                <p><em>Snippet inclusion filters here.</em></p>
+                <CategorySelector
+                    categories={ categories }
+                    selected={ selectedCategories }
+                    onChange={ ( newSelectedCategories ) => setSelectedCategories( newSelectedCategories ) }
+                />
             </div>
 
             <div className="field">

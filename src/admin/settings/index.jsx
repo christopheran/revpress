@@ -6,7 +6,7 @@ import SnippetList from './snippet-list';
 import SnippetEditor from './snippet-editor';
 import GeneralSettings from './general';
 
-const Settings = ( { snippets, doSnippetAction, loadingCategories, categories } ) => {
+const Settings = ( { snippets, doSnippetAction, categories } ) => {
 	const [ editingSnippet, setEditingSnippet ] = useState();
 
 	const saveSnippet = ( snippet ) => {
@@ -30,7 +30,8 @@ const Settings = ( { snippets, doSnippetAction, loadingCategories, categories } 
 					snippet={ editingSnippet }
 					cancel={ () => setEditingSnippet( undefined ) }
 					saveSnippet={ saveSnippet }
-					savingSnippet={ snippets.saving } />
+					savingSnippet={ snippets.saving }
+					categories={ categories } />
 			</div>
 		);
 	}

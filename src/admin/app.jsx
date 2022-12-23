@@ -81,22 +81,38 @@ function snippetsReducer( snippets, action ) {
 	}
 }
 
+function buildTaxonomyTree( parent, categories ) {
+	const tree = [];
+	categories.forEach( ( category ) => {
+		if ( category.parent == parent ) {
+			const node = [ category, buildTaxonomyTree( category.id, categories ) ];
+			tree.push( node );
+		}
+	} );
+
+	return tree;
+}
+
 function categoriesReducer( categories, action ) {
 	switch ( action.type ) {
 		case 'load_categories':
 			return {
-				loading: true,
-				...categories
+				...categories,
+				loading: true
 			};
 		case 'load_categories_success':
 			return {
 				loading: false,
-				categories: action.categories
+				byId: action.categories.reduce( ( byId, category ) => {
+					byId[ category.id ] = category;
+					return byId;
+				}, {} ),
+				tree: buildTaxonomyTree( 0, action.categories )
 			};
 		case 'load_categories_failed':
 			return {
-				loading: false,
-				...categories
+				...categories,
+				loading: false
 			};
 		default:
 			return categories;
@@ -111,7 +127,8 @@ const initialSnippetsData = {
 };
 
 const initialCategoriesData = {
-	all: [],
+	byId: {},
+	tree: [],
 	loading: false
 };
 

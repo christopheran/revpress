@@ -330,6 +330,14 @@ $revpressGreen: rgb(0, 158, 18);
     }
 }
 
+// CategorySelector component styles.
+.revpress.category-selector {
+    ol {
+        list-style: none;
+        margin: 0 0 0 16px;
+    }
+}
+
 // Modify padding on Button from @wordpress/components when the button
 // has an icon and text. The default padding leaves the text too close
 // to the edge of the button.
